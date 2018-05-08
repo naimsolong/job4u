@@ -19,6 +19,7 @@ add('shared_dirs', []);
 // Writable dirs by web server 
 add('writable_dirs', []);
 
+set('ssh_multiplexing', false);
 
 // Hosts
 
