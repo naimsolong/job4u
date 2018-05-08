@@ -1,0 +1,32 @@
+/*.ct-series-a .ct-slice-pie {
+  fill: #00a79d;
+}
+.ct-series-b .ct-slice-pie {
+  fill: #1c75bc;
+}
+.ct-series-c .ct-slice-pie {
+  fill: #92278f;
+}
+.ct-series-d .ct-slice-pie {
+  fill: #fbb040;
+}
+.ct-series-e .ct-slice-pie {
+  fill: #f15a29;
+}
+.ct-series-f .ct-slice-pie {
+  fill: #be1e2d;
+}
+.ct-label{
+  fill: white;
+}*/
+
+
+
+#mdialog {
+    position: fixed;
+    /*width: auto;*/
+    bottom: 1%;
+    right: 1%;
+    z-index: 999;
+    box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.2);
+}

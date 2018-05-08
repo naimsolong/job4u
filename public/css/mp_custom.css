@@ -1,0 +1,96 @@
+
+.dropdown-toggle::after {
+	display: none;
+}
+
+.profile-pic {
+  /*height: 150px;
+  width: 150px;*/
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: multiply;
+  vertical-align: middle;
+  text-align: center;
+  color: transparent;
+  transition: all .3s ease;
+  text-decoration: none;
+}
+
+.profile-pic:hover {
+  background-color: rgba(0,0,0,.5);
+  z-index: 10000;
+  color: #fff;
+  transition: all .3s ease;
+  text-decoration: none;
+}
+
+.profile-pic span {
+  display: inline-block;
+  padding-top: 4.5em;
+  padding-bottom: 4.5em;
+}
+
+.table td {
+	border-top: none;
+	padding-left: 0px;
+	padding-bottom: 0px;
+}
+
+/*@media all and (min-width: 768px) and (max-width: 1200px){
+	#iconProfile span {
+		display: none;
+	}
+}*/
+
+#jobDetails ul {
+	padding: 0;
+	margin: 1vh 0 1vh 0;
+}
+
+#jobDetails li {
+	/*display: inline-block;*/
+	list-style: none;
+	margin-right: 1vh;
+}
+
+#footer .list-group-item {
+	background-color: transparent !important;
+	border: none;
+	padding-bottom: 0;
+	padding-left: 0;
+}
+
+.timeline {position: relative;}
+.timeline-line{position:absolute;width:4px;display:block;background:currentColor;top:0px;bottom:10px;margin-left:-18px}
+.timeline-line::before{top:-4px}
+.timeline-line::after{bottom:-4px}
+.timeline-line::after,.timeline-line::before{content:'';position:absolute;left:-4px;width:12px;height:12px;display:block;border-radius:50%;background:currentColor}
+.timeline .timeline-separator:first-child{margin-top: 0px !important;}
+.timeline-separator{/*border-top:2px solid currentColor;*/padding:15px 5px 10px 40px;margin-left:-15px;margin-top:10px}
+.timeline-separator h3, .timeline-separator h6{margin-left:-18px}
+.timeline-icon{margin: 15px 0 0 -7px;height:1.8em;width:1.8em}
+/*.card-header{border-bottom:5px solid}*/
+
+.to-top {
+    position: fixed;
+    bottom: 5%;
+    right: 5%;
+    background-color: #F6AE2D;
+    padding: 15px;
+    z-index: 999;
+    box-shadow: 0 0 1px 3px rgba(0, 0, 0, 0.2);
+    color: white;
+}
+
+
+#mdialog {
+    position: fixed;
+    /*width: auto;*/
+    bottom: 1%;
+    right: 1%;
+    z-index: 999;
+    box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.2);
+}
+
+
+
