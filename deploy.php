@@ -24,7 +24,7 @@ add('writable_dirs', []);
 
 host('fyp.naimteehee.com')
     ->user('deployer')
-    ->identityFile('~/.ssh/id_rsa')
+    ->identityFile('~/.ssh/deployerkey')
     ->set('deploy_path', '/var/www/html/job4u');    
     
 // Tasks
