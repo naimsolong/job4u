@@ -1,3 +1,6 @@
 [submodule "job4u"]
 	path = job4u
 	url = https://bitbucket.org/naimteehee/job4u
+[submodule "releases"]
+	path = releases
+	url = https://naimteehee@bitbucket.org/naimteehee/job4u.git
