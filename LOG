@@ -1,0 +1,32 @@
+[localhost] > git rev-parse --abbrev-ref HEAD
+[localhost] < master
+[fyp.naimteehee.com] > echo $0
+[fyp.naimteehee.com] < [error] mm_send_fd: sendmsg(2): Broken pipe
+[fyp.naimteehee.com] < [error] mux_client_request_session: send fds failed
+[Deployer\Exception\RuntimeException] The command "echo $0" failed.
+
+Exit Code: -1 (Unknown error)
+
+Host Name: fyp.naimteehee.com
+
+================
+mm_send_fd: sendmsg(2): Broken pipe
+mux_client_request_session: send fds failed
+
+#0 C:\Users\AMIRUL NAIM\AppData\Roaming\Composer\vendor\deployer\deployer\src\functions.php(304): Deployer\Ssh\Client->run(Object(Deployer\Host\Host), 'echo $0', Array)
+#1 C:\Users\AMIRUL NAIM\AppData\Roaming\Composer\vendor\deployer\deployer\recipe\deploy\prepare.php(15): Deployer\run('echo $0')
+#2 [internal function]: Deployer\Deployer::Deployer\{closure}()
+#3 C:\Users\AMIRUL NAIM\AppData\Roaming\Composer\vendor\deployer\deployer\src\Task\Task.php(105): call_user_func(Object(Closure))
+#4 C:\Users\AMIRUL NAIM\AppData\Roaming\Composer\vendor\deployer\deployer\src\Executor\SeriesExecutor.php(63): Deployer\Task\Task->run(Object(Deployer\Task\Context))
+#5 C:\Users\AMIRUL NAIM\AppData\Roaming\Composer\vendor\deployer\deployer\src\Console\TaskCommand.php(142): Deployer\Executor\SeriesExecutor->run(Array, Array)
+#6 C:\Users\AMIRUL NAIM\AppData\Roaming\Composer\vendor\symfony\console\Command\Command.php(262): Deployer\Console\TaskCommand->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Deployer\Console\Output\OutputWatcher))
+#7 C:\Users\AMIRUL NAIM\AppData\Roaming\Composer\vendor\symfony\console\Application.php(826): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Deployer\Console\Output\OutputWatcher))
+#8 C:\Users\AMIRUL NAIM\AppData\Roaming\Composer\vendor\deployer\deployer\src\Console\Application.php(133): Symfony\Component\Console\Application->doRunCommand(Object(Deployer\Console\TaskCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Deployer\Console\Output\OutputWatcher))
+#9 C:\Users\AMIRUL NAIM\AppData\Roaming\Composer\vendor\symfony\console\Application.php(189): Deployer\Console\Application->doRunCommand(Object(Deployer\Console\TaskCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Deployer\Console\Output\OutputWatcher))
+#10 C:\Users\AMIRUL NAIM\AppData\Roaming\Composer\vendor\symfony\console\Application.php(120): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#11 C:\Users\AMIRUL NAIM\AppData\Roaming\Composer\vendor\deployer\deployer\src\Deployer.php(331): Symfony\Component\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#12 C:\Users\AMIRUL NAIM\AppData\Roaming\Composer\vendor\deployer\deployer\bin\dep(120): Deployer\Deployer::run('master', 'C:\\laragon\\www\\...')
+#13 {main}
+[fyp.naimteehee.com] > rm -f /var/www/html/job4u/.dep/deploy.lock
+[fyp.naimteehee.com] < [error] mm_send_fd: sendmsg(2): Broken pipe
+[fyp.naimteehee.com] < [error] mux_client_request_session: send fds failed
