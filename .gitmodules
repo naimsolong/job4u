@@ -1,0 +1,3 @@
+[submodule "job4u"]
+	path = job4u
+	url = https://bitbucket.org/naimteehee/job4u
