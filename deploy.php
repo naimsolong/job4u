@@ -7,7 +7,7 @@ require 'recipe/laravel.php';
 set('application', 'Job4U');
 
 // Project repository
-set('repository', 'https://naimteehee@bitbucket.org/naimteehee/job4u.git');
+set('repository', 'git@bitbucket.org:naimteehee/job4u.git');
 
 // [Optional] Allocate tty for git clone. Default value is false.
 set('git_tty', true); 
@@ -39,4 +39,5 @@ after('deploy:failed', 'deploy:unlock');
 // Migrate database before symlink new release.
 
 //before('deploy:symlink', 'artisan:migrate');
+
 
