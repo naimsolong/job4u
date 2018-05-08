@@ -286,7 +286,7 @@ class AlumniController extends Controller
                     'proficiency' => $request->skillProficiency_2,
                 ]);
 
-                if(!$user->alumni->skills()->create($skill2))
+                if(!$user->alumni->skills()->save($skill2))
                     return redirect('/a/profile')->with('fail', '#2 Skill is not update!');
             }
             if($request->skillName_3 != null && $request->skillName_3 != null) {
@@ -296,7 +296,7 @@ class AlumniController extends Controller
                     'proficiency' => $request->skillProficiency_3,
                 ]);
 
-                if(!$user->alumni->skills()->create($skill3))
+                if(!$user->alumni->skills()->save($skill3))
                     return redirect('/a/profile')->with('fail', '#3 Skill is not update!');
             }
             if($request->langName_2 != null && $request->langName_2 != null) {
@@ -316,7 +316,7 @@ class AlumniController extends Controller
                     'proficiency' => $request->langProficiency_3,
                 ]);
 
-                if(!$user->alumni->languages()->create($language3))
+                if(!$user->alumni->languages()->save($language3))
                     return redirect('/a/profile')->with('fail', '#3 Language is not update!');
             }
 
