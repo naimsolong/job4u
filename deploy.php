@@ -22,9 +22,9 @@ add('writable_dirs', []);
 
 // Hosts
 
-host('fyp.naimteehee.com')
+host('128.199.164.104')
     ->user('deployer')
-    ->identityFile('~/.ssh/deployerkey')
+    ->identityFile('~/.ssh/authorized_keys')
     ->set('deploy_path', '/var/www/html/job4u');    
     
 // Tasks
