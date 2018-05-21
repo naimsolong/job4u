@@ -26,7 +26,7 @@ set('ssh_multiplexing', false);
 host('fyp.naimteehee.com')
     ->user('deployer')
     ->identityFile('~/.ssh/deployerkey')
-    ->set('deploy_path', '/var/www/html/job4u');  
+    ->set('deploy_path', '~/var/www/html/job4u');  
     
 // Tasks
 
@@ -39,7 +39,7 @@ after('deploy:failed', 'deploy:unlock');
 
 // Migrate database before symlink new release.
 
-before('deploy:symlink', 'artisan:migrate');
+// before('deploy:symlink', 'artisan:migrate');
 // after('artisan:migrate', 'db:seed');
 
 
