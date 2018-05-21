@@ -33,7 +33,7 @@
 						<a href="{{ route('employer.register') }}">Create Free Employer Account</a>
 					</li>
 					@endguest
-					<li class="list-group-item">Post a Job</li>
+					{{-- <li class="list-group-item">Post a Job</li> --}}
 				</ul>
 			</div>
 			<div class="col-md mt-5">

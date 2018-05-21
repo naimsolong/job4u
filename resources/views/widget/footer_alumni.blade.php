@@ -26,7 +26,7 @@
 					<li class="list-group-item">
 						<a href="{{route('employerhome.index')}}">Employer Center</a>
 					</li>
-					<li class="list-group-item">Post a Job</li>
+					{{-- <li class="list-group-item">Post a Job</li> --}}
 				</ul>
 			</div>
 			<div class="col-md mt-5">

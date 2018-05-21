@@ -8,6 +8,22 @@ use App\Alumni;
 use App\Employer;
 use App\EmployerType;
 
+use App\Work;
+use App\JobCategory;
+use App\JobPositionLevel;
+
+use App\Education;
+use App\EducationLevel;
+use App\EducationQualificationLevel;
+
+use App\Skill;
+use App\Language;
+use App\Proficiency;
+
+use App\Company;
+use App\CompanyType;
+use App\CompanySize;
+
 class UserRandomRolesTableSeeder extends Seeder
 {
     /**
@@ -21,6 +37,9 @@ class UserRandomRolesTableSeeder extends Seeder
         $faker->addProvider(new Faker\Provider\ms_MY\Address($faker));
         $faker->addProvider(new Faker\Provider\ms_MY\Person($faker));
         $faker->addProvider(new Faker\Provider\ms_MY\PhoneNumber($faker));
+        $faker->addProvider(new Faker\Provider\ms_MY\Payment($faker));
+        $faker->addProvider(new Faker\Provider\ms_MY\Company($faker));
+        $faker->addProvider(new \Bezhanov\Faker\Provider\Educator($faker));
 
         $fakerUS = Faker\Factory::create();
         $fakerUS->addProvider(new Faker\Provider\en_US\Company($faker));
@@ -29,44 +48,34 @@ class UserRandomRolesTableSeeder extends Seeder
 		$religion = array('Islam', 'Christian', 'Hindu', 'Buddha', 'Others');
 		$disability = array('Y', 'N');
 		$marriage_status = array('Single', 'Married');
-
-        // $employer_type = array('Recruitment Department', 'Direct Employer');
+        $languages = array(
+            'Melayu', 'Cina', 'India', 'Inggeris',
+        );
+        $skills = array(
+            'Memasak', 'Melukis', 'Adobe', 'Microsoft', 'Programming', 'Mengira', 'Menulis',
+        );
+        
         $employer_type = EmployerType::pluck('name')->all();
+        $positionLevel = JobPositionLevel::pluck('name')->all();
+
+        $educationLevel = EducationLevel::pluck('name')->all();
+        $qualificationLevel = EducationQualificationLevel::pluck('name')->all();
+
+        $companyType = CompanyType::pluck('name')->all();
+        $companySize = CompanySize::pluck('name')->all();
+        $jobCategory = JobCategory::pluck('name')->all();
+
+        $proficiency = Proficiency::pluck('name')->all();
+
 
         // Alumni Role
 
+        // -------------------------------------------------------
+        
         $birth = $faker->date($format = 'Y-m-d', $max = 'now');
-        $myKad = date('ymd', strtotime($birth)) . $faker->randomNumber($nbDigits = 6, $strict = true);        
+        $myKad = date('ymd', strtotime($birth)) . $faker->randomNumber($nbDigits = 6, $strict = true);
 
-        User::create([
-            'firstname' => 'Dollah 1',
-            'lastname' => 'Salleh',
-            'gender' => 'M',
-            'username' => 'dollah1',
-            'email' => 'dollah1@gmail.com',
-            'role_id' => 1,
-            'password' => Hash::make('123456'),
-        ]);
-        User::create([
-            'firstname' => 'Dollah 2',
-            'lastname' => 'Salleh',
-            'gender' => 'M',
-            'username' => 'dollah2',
-            'email' => 'dollah2@gmail.com',
-            'role_id' => 2,
-            'password' => Hash::make('123456'),
-        ]);
-        User::create([
-            'firstname' => 'Dollah 3',
-            'lastname' => 'Salleh',
-            'gender' => 'M',
-            'username' => 'dollah3',
-            'email' => 'dollah3@gmail.com',
-            'role_id' => 3,
-            'password' => Hash::make('123456'),
-        ]);
-
-    	User::create([
+    	$alumni = User::create([
             'firstname' => 'Abdul Salman',
             'lastname' => 'Ahmad Muis',
             'gender' => 'M',
@@ -75,7 +84,6 @@ class UserRandomRolesTableSeeder extends Seeder
             'role_id' => 5,
     		'password' => Hash::make('123456'),
     	])->alumni()->create([
-            // 'user_id' => $n--,
             'identity_card' => $myKad,
             'birth_date' => $birth,
             'birth_state' => $faker->township,
@@ -95,10 +103,59 @@ class UserRandomRolesTableSeeder extends Seeder
             'expected_salary' => $faker->numberBetween($min = 900, $max = 3000),
         ]);
 
+        $end_duration = Carbon\Carbon::now();
+        $stop = rand(0,4);
+        
+        for($i = 0; $i < $stop; $i++) {
+            $end = $end_duration->format('Y');
+            $start_duration = $end_duration->subYears(rand(4,8));
+            $start = $start_duration->format('Y');
+
+            $alumni->works()->create([
+                'position_title' => $fakerUS->jobTitle,
+                'position_level' => $faker->randomElement($positionLevel),
+                'job_category' => $faker->randomElement($jobCategory),
+                'company_name' => $faker->companyName,
+                'start_duration' => $start,
+                'end_duration' => $end,
+                'salary' => $faker->randomNumber(5),
+            ]);
+        }
+
+        $stop = rand(0,3);
+        
+        for($i = 0; $i < $stop; $i++) {
+            $alumni->educations()->create([
+                'major' => $faker->course,
+                'education_level' => $faker->randomElement($educationLevel),
+                'institution' => $faker->university,
+                'qualification_level' => $faker->randomElement($qualificationLevel),
+                'graduate_month' => $faker->monthName,
+                'graduate_year' => $faker->year($max = 'now'),
+            ]);
+        }
+
+        $stop = rand(0,4);
+        
+        for($i = 0; $i < $stop; $i++) {
+            $alumni->languages()->create([
+                'name' => $faker->randomElement($languages),
+                'proficiency' => $faker->randomElement($proficiency),
+            ]);
+        }        
+        for($i = 0; $i < $stop; $i++) {
+            $alumni->skills()->create([
+                'name' => $faker->randomElement($skills),
+                'proficiency' => $faker->randomElement($proficiency),
+            ]);
+        }
+
+        // -------------------------------------------------------
+        
         $birth = $faker->date($format = 'Y-m-d', $max = 'now');
         $myKad = date('ymd', strtotime($birth)) . $faker->randomNumber($nbDigits = 6, $strict = true);
 
-        User::create([
+        $alumni = User::create([
             'firstname' => 'Amirul Naim',
             'lastname' => 'Mohd Solong',
             'gender' => 'M',
@@ -126,10 +183,60 @@ class UserRandomRolesTableSeeder extends Seeder
             'expected_salary' => $faker->numberBetween($min = 900, $max = 3000),
         ]);
 
+        $end_duration = Carbon\Carbon::now();
+        $stop = rand(0,4);
+        
+        for($i = 0; $i < $stop; $i++) {
+            $end = $end_duration->format('Y');
+            $start_duration = $end_duration->subYears(rand(4,8));
+            $start = $start_duration->format('Y');
+
+            $alumni->works()->create([
+                'position_title' => $fakerUS->jobTitle,
+                'position_level' => $faker->randomElement($positionLevel),
+                'job_category' => $faker->randomElement($jobCategory),
+                'company_name' => $faker->companyName,
+                'start_duration' => $start,
+                'end_duration' => $end,
+                'salary' => $faker->randomNumber(5),
+            ]);
+        }
+
+        $stop = rand(0,3);
+        
+        for($i = 0; $i < $stop; $i++) {
+            $alumni->educations()->create([
+                'major' => $faker->course,
+                'education_level' => $faker->randomElement($educationLevel),
+                'institution' => $faker->university,
+                'qualification_level' => $faker->randomElement($qualificationLevel),
+                'graduate_month' => $faker->monthName,
+                'graduate_year' => $faker->year($max = 'now'),
+            ]);
+        }
+
+        $stop = rand(0,4);
+        
+        for($i = 0; $i < $stop; $i++) {
+            $alumni->languages()->create([
+                'name' => $faker->randomElement($languages),
+                'proficiency' => $faker->randomElement($proficiency),
+            ]);
+        }        
+        for($i = 0; $i < $stop; $i++) {
+            $alumni->skills()->create([
+                'name' => $faker->randomElement($skills),
+                'proficiency' => $faker->randomElement($proficiency),
+            ]);
+        }
+
+
+        // -------------------------------------------------------
+        
         $birth = $faker->date($format = 'Y-m-d', $max = 'now');
         $myKad = date('ymd', strtotime($birth)) . $faker->randomNumber($nbDigits = 6, $strict = true);
 
-        User::create([
+        $alumni = User::create([
             'firstname' => 'Intan Nuralisa',
             'lastname' => 'Mat Dali',
             'gender' => 'F',
@@ -157,12 +264,63 @@ class UserRandomRolesTableSeeder extends Seeder
             'expected_salary' => $faker->numberBetween($min = 900, $max = 3000),
         ]);
 
+        $end_duration = Carbon\Carbon::now();
+        $stop = rand(0,4);
+        
+        for($i = 0; $i < $stop; $i++) {
+            $end = $end_duration->format('Y');
+            $start_duration = $end_duration->subYears(rand(4,8));
+            $start = $start_duration->format('Y');
+
+            $alumni->works()->create([
+                'position_title' => $fakerUS->jobTitle,
+                'position_level' => $faker->randomElement($positionLevel),
+                'job_category' => $faker->randomElement($jobCategory),
+                'company_name' => $faker->companyName,
+                'start_duration' => $start,
+                'end_duration' => $end,
+                'salary' => $faker->randomNumber(5),
+            ]);
+        }
+
+        $stop = rand(0,3);
+        
+        for($i = 0; $i < $stop; $i++) {
+            $alumni->educations()->create([
+                'major' => $faker->course,
+                'education_level' => $faker->randomElement($educationLevel),
+                'institution' => $faker->university,
+                'qualification_level' => $faker->randomElement($qualificationLevel),
+                'graduate_month' => $faker->monthName,
+                'graduate_year' => $faker->year($max = 'now'),
+            ]);
+        }
+
+        $stop = rand(0,4);
+        
+        for($i = 0; $i < $stop; $i++) {
+            $alumni->languages()->create([
+                'name' => $faker->randomElement($languages),
+                'proficiency' => $faker->randomElement($proficiency),
+            ]);
+        }        
+        for($i = 0; $i < $stop; $i++) {
+            $alumni->skills()->create([
+                'name' => $faker->randomElement($skills),
+                'proficiency' => $faker->randomElement($proficiency),
+            ]);
+        }
+
+
         // Employer Role
+
+
+        // -------------------------------------------------------
         
         $birth = $faker->date($format = 'Y-m-d', $max = 'now');
         $myKad = date('ymd', strtotime($birth)) . $faker->randomNumber($nbDigits = 6, $strict = true);
 
-        User::create([
+        $employer = User::create([
             'firstname' => 'Mohd Aiman',
             'lastname' => 'Selamat',
             'gender' => 'M',
@@ -179,11 +337,35 @@ class UserRandomRolesTableSeeder extends Seeder
             'employer_type' => $faker->randomElement($employer_type),
             'phone' => $faker->mobileNumber($countryCodePrefix = false, $hyphen = false),
         ]);;
+        
+        $employer->company()->create([
+            'name' => $faker->companyName,
+            'ssm' => $faker->swiftCode,
+            'job_category' => $faker->randomElement($jobCategory),
+            'company_type' => $faker->randomElement($companyType),
+            'company_size' => $faker->randomElement($companySize),
+            'about_us' => $faker->paragraph($nbSentences = 1, $variableNbSentences = true),
+            'address_1' => $faker->buildingPrefix . $faker->buildingNumber . " " . $faker->streetName,
+            'address_2' => $faker->township,
+            'city' => $faker->city,
+            'postal' => $faker->postcode,
+            'state' => $faker->state,
+            'country' => 'Malaysia',
+            'dress_code' => $faker->randomElement($array = array('Smart Casual', 'Formal Dress', null)),
+            'work_days' => $faker->randomElement($array = array('Sun to Thu', 'Mon to Fri')),
+            'work_hours' => $faker->randomElement($array = array('8AM to 5PM', '9AM to 6PM')),
+            'website_url' => $faker->url,
+            'verification' => $faker->numberBetween($min = 0, $max = 1),
+            'profile_view' => $faker->numberBetween($min = 10, $max = 50),
+        ]);
 
+
+        // -------------------------------------------------------
+        
         $birth = $faker->date($format = 'Y-m-d', $max = 'now');
         $myKad = date('ymd', strtotime($birth)) . $faker->randomNumber($nbDigits = 6, $strict = true);
 
-        User::create([
+        $employer = User::create([
             'firstname' => 'Siti Zahrah',
             'lastname' => 'Khalid Ali',
             'gender' => 'F',
@@ -200,50 +382,33 @@ class UserRandomRolesTableSeeder extends Seeder
             'employer_type' => $faker->randomElement($employer_type),
             'phone' => $faker->mobileNumber($countryCodePrefix = false, $hyphen = false),
         ]);
-
-        $birth = $faker->date($format = 'Y-m-d', $max = 'now');
-        $myKad = date('ymd', strtotime($birth)) . $faker->randomNumber($nbDigits = 6, $strict = true);
-
-        User::create([
-            'firstname' => 'John',
-            'lastname' => 'Doe',
-            'gender' => 'M',
-            'username' => 'johndoe',
-            'email' => 'johndoe@gmail.com',
-            'role_id' => 4,
-            'password' => Hash::make('123456'),
-        ])->employer()->create([
-            'identity_card' => $myKad,
-            'birth_date' => $birth,
-            'race' => 'Others',
-            'religion' => $faker->randomElement($religion),
-            'current_position' => $fakerUS->jobTitle,
-            'employer_type' => $faker->randomElement($employer_type),
-            'phone' => $faker->mobileNumber($countryCodePrefix = false, $hyphen = false),
+        
+        $employer->company()->create([
+            'name' => $faker->companyName,
+            'ssm' => $faker->swiftCode,
+            'job_category' => $faker->randomElement($jobCategory),
+            'company_type' => $faker->randomElement($companyType),
+            'company_size' => $faker->randomElement($companySize),
+            'about_us' => $faker->paragraph($nbSentences = 1, $variableNbSentences = true),
+            'address_1' => $faker->buildingPrefix . $faker->buildingNumber . " " . $faker->streetName,
+            'address_2' => $faker->township,
+            'city' => $faker->city,
+            'postal' => $faker->postcode,
+            'state' => $faker->state,
+            'country' => 'Malaysia',
+            'dress_code' => $faker->randomElement($array = array('Smart Casual', 'Formal Dress', null)),
+            'work_days' => $faker->randomElement($array = array('Sun to Thu', 'Mon to Fri')),
+            'work_hours' => $faker->randomElement($array = array('8AM to 5PM', '9AM to 6PM')),
+            'website_url' => $faker->url,
+            'verification' => $faker->numberBetween($min = 0, $max = 1),
+            'profile_view' => $faker->numberBetween($min = 10, $max = 50),
         ]);
 
-        $birth = $faker->date($format = 'Y-m-d', $max = 'now');
-        $myKad = date('ymd', strtotime($birth)) . $faker->randomNumber($nbDigits = 6, $strict = true);
 
-        User::create([
-            'firstname' => 'Raj',
-            'lastname' => 'kathropali',
-            'gender' => 'M',
-            'username' => 'rajkat',
-            'email' => 'rajkat@gmail.com',
-            'role_id' => 4,
-            'password' => Hash::make('123456'),
-        ])->employer()->create([
-            'identity_card' => $myKad,
-            'birth_date' => $birth,
-            'race' => 'Indian',
-            'religion' => $faker->randomElement($religion),
-            'current_position' => $fakerUS->jobTitle,
-            'employer_type' => $faker->randomElement($employer_type),
-            'phone' => $faker->mobileNumber($countryCodePrefix = false, $hyphen = false),
-        ]);
 
-        foreach (range(1,10) as $index) {
+
+
+        foreach (range(1,200) as $index) {
         	$username = $faker->unique()->userName;
         	$email = $username.'@gmail.com';
 
@@ -253,7 +418,7 @@ class UserRandomRolesTableSeeder extends Seeder
 
 	        switch ($role_id) {
 	        	case 4:	        		
-					User::create([				
+					$employer = User::create([				
 						'firstname' => $faker->firstName,
 		                'lastname' => $faker->lastName,
 		                'gender' => $faker->randomElement($array = array('M', 'F')),
@@ -270,10 +435,31 @@ class UserRandomRolesTableSeeder extends Seeder
 			            'employer_type' => $faker->randomElement($employer_type),
 			            'phone' => $faker->mobileNumber($countryCodePrefix = false, $hyphen = false),
 			        ]);
+        
+                    $employer->company()->create([
+                        'name' => $faker->companyName,
+                        'ssm' => $faker->swiftCode,
+                        'job_category' => $faker->randomElement($jobCategory),
+                        'company_type' => $faker->randomElement($companyType),
+                        'company_size' => $faker->randomElement($companySize),
+                        'about_us' => $faker->paragraph($nbSentences = 1, $variableNbSentences = true),
+                        'address_1' => $faker->buildingPrefix . $faker->buildingNumber . " " . $faker->streetName,
+                        'address_2' => $faker->township,
+                        'city' => $faker->city,
+                        'postal' => $faker->postcode,
+                        'state' => $faker->state,
+                        'country' => 'Malaysia',
+                        'dress_code' => $faker->randomElement($array = array('Smart Casual', 'Formal Dress', null)),
+                        'work_days' => $faker->randomElement($array = array('Sun to Thu', 'Mon to Fri')),
+                        'work_hours' => $faker->randomElement($array = array('8AM to 5PM', '9AM to 6PM')),
+                        'website_url' => $faker->url,
+                        'verification' => $faker->numberBetween($min = 0, $max = 1),
+                        'profile_view' => $faker->numberBetween($min = 10, $max = 50),
+                    ]);
 	        		break;
 	        	
 	        	case 5:	        		
-					User::create([				
+					$alumni = User::create([				
 						'firstname' => $faker->firstName,
 		                'lastname' => $faker->lastName,
 		                'gender' => $faker->randomElement($array = array('M', 'F')),
@@ -299,7 +485,54 @@ class UserRandomRolesTableSeeder extends Seeder
             			'about_me' => $faker->paragraph($nbSentences = 5, $variableNbSentences = true),
                         'profile_view' => $faker->numberBetween($min = 10, $max = 50),
                         'expected_salary' => $faker->numberBetween($min = 900, $max = 3000),
-			        ]);;
+			        ]);                    
+
+                    $end_duration = Carbon\Carbon::now();
+                    $stop = rand(0,4);
+                    
+                    for($i = 0; $i < $stop; $i++) {
+                        $end = $end_duration->format('Y');
+                        $start_duration = $end_duration->subYears(rand(4,8));
+                        $start = $start_duration->format('Y');
+
+                        $alumni->works()->create([
+                            'position_title' => $fakerUS->jobTitle,
+                            'position_level' => $faker->randomElement($positionLevel),
+                            'job_category' => $faker->randomElement($jobCategory),
+                            'company_name' => $faker->companyName,
+                            'start_duration' => $start,
+                            'end_duration' => $end,
+                            'salary' => $faker->randomNumber(5),
+                        ]);
+                    }
+
+                    $stop = rand(0,3);
+                    
+                    for($i = 0; $i < $stop; $i++) {
+                        $alumni->educations()->create([
+                            'major' => $faker->course,
+                            'education_level' => $faker->randomElement($educationLevel),
+                            'institution' => $faker->university,
+                            'qualification_level' => $faker->randomElement($qualificationLevel),
+                            'graduate_month' => $faker->monthName,
+                            'graduate_year' => $faker->year($max = 'now'),
+                        ]);
+                    }
+
+                    $stop = rand(0,4);
+                    
+                    for($i = 0; $i < $stop; $i++) {
+                        $alumni->languages()->create([
+                            'name' => $faker->randomElement($languages),
+                            'proficiency' => $faker->randomElement($proficiency),
+                        ]);
+                    }        
+                    for($i = 0; $i < $stop; $i++) {
+                        $alumni->skills()->create([
+                            'name' => $faker->randomElement($skills),
+                            'proficiency' => $faker->randomElement($proficiency),
+                        ]);
+                    }
 	        		break;
 	        	
 	        	default:

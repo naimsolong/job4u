@@ -89,7 +89,7 @@
 						<div class="card mt-3">
 							<div class="card-header">Descriptions</div>
 							<div class="card-body text-justify">
-								{{$application->job->descriptions}}
+								{!!$application->job->descriptions!!}
 							</div>
 						</div>
 					</div>
@@ -99,7 +99,7 @@
 						<div class="card mt-3">
 							<div class="card-header">Requirements</div>
 							<div class="card-body">
-								{{$application->job->requirements}}
+								{!! $application->job->requirements !!}
 							</div>
 						</div>
 					</div>
@@ -109,7 +109,7 @@
 						<div class="card mt-3">
 							<div class="card-header">Responsiblity</div>
 							<div class="card-body">
-								{{$application->job->responsibilities}}
+								{!!$application->job->responsibilities!!}
 							</div>
 						</div>
 					</div>
@@ -119,7 +119,7 @@
 						<div class="card mt-3">
 							<div class="card-header">Benefits</div>
 							<div class="card-body">
-								{{$application->job->benefits}}
+								{!!$application->job->benefits!!}
 							</div>
 						</div>
 					</div>

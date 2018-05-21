@@ -342,6 +342,10 @@ Route::get('/dashboard', ['as'=>'employerdashboard', 'uses'=>'EmployerController
 
 Route::post('/ajaxJob', ['as'=>'ajaxJob', 'uses'=>'EmployerController@ajaxJob'])->middleware(['employer', 'auth']);
 
+Route::post('/ajaxReport', ['as'=>'ajaxReport', 'uses'=>'EmployerController@ajaxReport'])->middleware(['employer', 'auth']);
+
+Route::get('/printReport', ['as'=>'employer.printReport', 'uses'=>'EmployerController@printReport'])->middleware(['employer', 'auth']);
+
 // Route::get('/dashboard/{tab}', ['as'=>'employerdashboard', 'uses'=>'EmployerController@index'])->middleware(['employer', 'auth']);
 
 // ------------------------------ Profile
@@ -499,6 +503,29 @@ Route::group(['prefix'=>'admin', 'as'=>'admin.', 'middleware'=>['auth', 'admin']
 		'uses'=>'AdminController@viewdashboard'
 	]);
 
+	// View Setting
+	Route::get('/setting', [
+		'as'=>'viewsetting',
+		'uses'=>'AdminController@viewsetting'
+	]);
+	Route::get('/setting/edit', [
+		'as'=>'editsetting',
+		'uses'=>'AdminController@editsetting'
+	]);
+	Route::post('/setting/update', [
+		'as'=>'updatesetting',
+		'uses'=>'AdminController@updatesetting'
+	]);
+	Route::get('/change-password', [
+		'as'=>'editpassword',
+		'uses'=>'AdminController@editpassword'
+	]);
+	Route::post('/change-password/update', [
+		'as'=>'updatepassword',
+		'uses'=>'AdminController@updatepassword'
+	]);
+
+	// Graph AJAX
 	Route::post('/graphoverallapplication', [
 		'as'=>'graphdashboard',
 		'uses'=>'AdminController@graphoverallapplication'
@@ -509,7 +536,7 @@ Route::group(['prefix'=>'admin', 'as'=>'admin.', 'middleware'=>['auth', 'admin']
 		'uses'=>'AdminController@graphhiredapplication'
 	]);
 
-
+	// View Company
 	Route::get('/company/all', [
 		'as'=>'viewallcompany',
 		'uses'=>'AdminController@viewallcompany'
@@ -530,7 +557,18 @@ Route::group(['prefix'=>'admin', 'as'=>'admin.', 'middleware'=>['auth', 'admin']
 		'uses'=>'AdminController@verifycompany'
 	]);
 
+	// View Applications
+	Route::get('/application/all', [
+		'as'=>'viewallapplication',
+		'uses'=>'AdminController@viewallapplication'
+	]);
 
+	Route::get('/application/view/{id}', [
+		'as'=>'viewapplication',
+		'uses'=>'AdminController@viewapplication'
+	]);
+
+	// View Job
 	Route::get('/job/all', [
 		'as'=>'viewalljob',
 		'uses'=>'AdminController@viewalljob'
@@ -541,16 +579,16 @@ Route::group(['prefix'=>'admin', 'as'=>'admin.', 'middleware'=>['auth', 'admin']
 		'uses'=>'AdminController@viewjob'
 	]);
 
-
+	// View Report
 	Route::get('/report/monthly', [
-		'as'=>'monthlyreport',
-		'uses'=>'AdminController@monthlyreport'
+		'as'=>'reportmonthly',
+		'uses'=>'AdminController@reportmonthly'
 	]);
 
 
 	Route::get('/report/yearly', [
-		'as'=>'yearlyreport',
-		'uses'=>'AdminController@yearlyreport'
+		'as'=>'reportyearly',
+		'uses'=>'AdminController@reportyearly'
 	]);
 
 });

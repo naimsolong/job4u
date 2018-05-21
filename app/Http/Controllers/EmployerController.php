@@ -12,10 +12,14 @@ use App\Employer;
 
 use App\Job;
 
+use App\Application;
+
 use App\EmployerType;
 
 use Validator;
 use Session;
+
+use PDF;
 
 class EmployerController extends Controller
 {
@@ -59,6 +63,47 @@ class EmployerController extends Controller
 
         return response($jobs);
 
+    }
+
+    public function ajaxReport() {
+
+        $applications = Auth::user()->employer->applications;
+
+        $jobs = [
+            count($applications),
+            count($applications->where("status", 1)),
+            count($applications->where("status", 2)),
+            count($applications->where("status", 3)),
+            count($applications->where("status", 4)),
+            count($applications->where("status", 5)),
+            count($applications->where("status", 6)),
+        ];
+
+        return response($jobs);
+
+    }
+
+    public function printReport() {
+        // $pdf = PDF::make('dompdf.wrapper');
+        // $pdf->loadHTML('<h1>Test</h1>');
+
+        $applications = Auth::user()->employer->applications;
+
+        $jobs = [
+            count($applications),
+            count($applications->where("status", 1)),
+            count($applications->where("status", 2)),
+            count($applications->where("status", 3)),
+            count($applications->where("status", 4)),
+            count($applications->where("status", 5)),
+            count($applications->where("status", 6)),
+        ];
+
+        // $data["info"] = "I is usefull!";
+        $pdf = PDF::loadHTML('<h1>Test</h1>');
+        return $pdf->stream('whateveryourviewname.pdf');
+        
+        // return view('employer.report', compact('applications'));
     }
 
     // ----------------------------------------------------------------------

@@ -155,7 +155,7 @@ Overview
 						<div class="card-body">
 							<h4>Objective</h4>
 				            <p class="mb-0">
-				            	{{$user->alumni->about_me}}
+				            	{!!$user->alumni->about_me!!}
 				            </p>
 						</div>
 					</div>

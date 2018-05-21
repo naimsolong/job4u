@@ -35,10 +35,7 @@ All Company
 						</thead>
 						<tfoot>
 							<tr>
-								<th>Company Name</th>
-								<th>SSM No.</th>
-								<th class="text-center">Status</th>
-								<th class="text-right">Actions</th>
+								<td colspan="4" class="text-center">{{$companies->links()}}</td>
 							</tr>
 						</tfoot>
 						<tbody>

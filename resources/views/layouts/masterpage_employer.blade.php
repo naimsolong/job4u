@@ -39,6 +39,9 @@
 	<script type="text/javascript" src="{{asset('js/fontawesome-all.js')}}"></script>
 	
 	<script type="text/javascript" src="{{asset('summernote-0.8.9-dist/summernote-lite.js')}}"></script>
+	
+	<script type="text/javascript" src="{{asset('Chartjs/Chart.bundle.js')}}"></script>
+	<script type="text/javascript" src="{{asset('Chartjs/Chart.bundle.min.js')}}"></script>
 
 	<script type="text/javascript" src="{{asset('js/mp_custom.js')}}"></script>
 	

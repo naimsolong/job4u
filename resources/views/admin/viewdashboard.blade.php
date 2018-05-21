@@ -114,7 +114,7 @@ Dashboard
 							</tr>
 						</tfoot>
 						<tbody>
-							@foreach($companies->where('verification', 0)->sortByDesc('created_at') as $company)
+							@foreach($companies->where('verification', 0)->take(4)->sortByDesc('created_at') as $company)
 							<tr>
 								<td>{{$company->name}}</td>
 								<td>{{$company->ssm}}</td>
@@ -126,6 +126,9 @@ Dashboard
 						</tbody>
 					</table>
 				</div>
+			</div>
+			<div class="card-footer">
+				<a href="{{route('admin.listverifycompany')}}" class="btn btn-warning">View More</a>
 			</div>
 			<!-- end content-->
 		</div>

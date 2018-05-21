@@ -34,19 +34,19 @@
 	    	
     		@switch(Auth::user()->role_id)
     			@case(1)
-			        <a href="http://www.creative-tim.com" class="simple-text logo-mini">AD </a>
+			        <a href="{{route('admin.viewdashboard')}}" class="simple-text logo-mini">AD </a>
     				<a href="{{route('admin.viewdashboard')}}" class="simple-text logo-normal">Admin</a>
     				@break
     			@case(2)
-			        <a href="http://www.creative-tim.com" class="simple-text logo-mini">CC</a>
+			        <a href="{{route('admin.viewdashboard')}}" class="simple-text logo-mini">CC</a>
     				<a href="{{route('admin.viewdashboard')}}" class="simple-text logo-normal">UTMCC</a>
     				@break
     			@case(3)
-			        <a href="http://www.creative-tim.com" class="simple-text logo-mini">A</a>
+			        <a href="{{route('admin.viewdashboard')}}" class="simple-text logo-mini">A</a>
     				<a href="{{route('admin.viewdashboard')}}" class="simple-text logo-normal">UTM Alumni</a>
     				@break
     			@default
-			        <a href="http://www.creative-tim.com" class="simple-text logo-mini">JOB4U</a>
+			        <a href="{{route('admin.viewdashboard')}}" class="simple-text logo-mini">JOB4U</a>
     				<a href="{{route('admin.viewdashboard')}}" class="simple-text logo-normal">UTM</a>
     				@break
     		@endswitch
@@ -67,7 +67,7 @@
 	    			<div class="collapse" id="collapseExample">
 	    				<ul class="nav">
 	    					<li class="nav-item">
-	    						<a class="nav-link" href="#">
+	    						<a class="nav-link" href="{{ route('admin.viewsetting') }}">
 	    							<span class="sidebar-mini"> S </span>
 	    							<span class="sidebar-normal"> Settings </span>
 	    						</a>
@@ -121,6 +121,12 @@
 	    			</div>
 	    		</li>
 	    		<li class="nav-item ">
+	    			<a class="nav-link" href="{{route('admin.viewallapplication')}}">
+	    				<i class="material-icons">folder_shared</i>
+	    				<p> Applications </p>
+	    			</a>
+	    		</li>
+	    		{{-- <li class="nav-item ">
 	    			<a class="nav-link" data-toggle="collapse" href="#applications">
 	    				<i class="material-icons">folder_shared</i>
 	    				<p> Applications
@@ -143,7 +149,7 @@
 	    					</li>
 	    				</ul>
 	    			</div>
-	    		</li>
+	    		</li> --}}
 	    		@endif
 	    		@if(Auth::user()->role_id != 2)
 	    		<li class="nav-item ">
@@ -175,13 +181,13 @@
 	    			<div class="collapse" id="reports">
 	    				<ul class="nav">
 	    					<li class="nav-item ">
-	    						<a class="nav-link" href="">
+	    						<a class="nav-link" href="{{route('admin.reportmonthly')}}">
 	    							<span class="sidebar-mini"> BY </span>
 	    							<span class="sidebar-normal"> By Yearly </span>
 	    						</a>
 	    					</li>
 	    					<li class="nav-item ">
-	    						<a class="nav-link" href="">
+	    						<a class="nav-link" href="{{route('admin.reportyearly')}}">
 	    							<span class="sidebar-mini"> BM </span>
 	    							<span class="sidebar-normal"> By Monthly </span>
 	    						</a>

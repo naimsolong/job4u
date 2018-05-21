@@ -49,7 +49,7 @@ Verify Company
 						<div class="card-header">
 							<h4 class="card-title">About Us</h4>
 							<p>
-								{{$company->about_us}}
+								{!!$company->about_us!!}
 							</p>
 						</div>
 						<div class="card-body">

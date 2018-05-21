@@ -17,23 +17,23 @@ View Job
 			<br />
 			<ul class="nav nav-pills nav-pills-info nav-pills-icons justify-content-center" role="tablist">
 				<li class="nav-item">
-					<a class="nav-link active" data-toggle="tab" href="#description" role="tablist">
+					<a class="nav-link active" data-toggle="tab" href="#job_description" role="tablist">
 						<i class="material-icons">info</i> Description
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" data-toggle="tab" href="#details" role="tablist">
+					<a class="nav-link" data-toggle="tab" href="#job_details" role="tablist">
 						<i class="material-icons">library_books</i> More Details
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" data-toggle="tab" href="#applications" role="tablist">
+					<a class="nav-link" data-toggle="tab" href="#job_applications" role="tablist">
 						<i class="material-icons">assessment</i> Applications
 					</a>
 				</li>
 			</ul>
 			<div class="tab-content tab-space tab-subcategories pt-0">
-				<div class="tab-pane active" id="description">
+				<div class="tab-pane active" id="job_description">
 					<div class="card">
 						<div class="card-body">
 							
@@ -69,7 +69,7 @@ View Job
 						</div>
 					</div>
 				</div>
-				<div class="tab-pane" id="details">
+				<div class="tab-pane" id="job_details">
 					<div class="row">
 						<div class="col-12">
 							<div class="card my-3">
@@ -77,7 +77,7 @@ View Job
 									<h4 class="card-title">Descriptions</h4>
 								</div>
 								<div class="card-body text-justify">
-									{{$job->descriptions}}
+									{!!$job->descriptions!!}
 								</div>
 							</div>
 						</div>
@@ -89,7 +89,7 @@ View Job
 									<h4 class="card-title">Requirements</h4>
 								</div>
 								<div class="card-body">
-									{{$job->requirements}}
+									{!!$job->requirements!!}
 								</div>
 							</div>
 						</div>
@@ -101,7 +101,7 @@ View Job
 									<h4 class="card-title">Responsiblity</h4>
 								</div>
 								<div class="card-body">
-									{{$job->responsibilities}}
+									{!!$job->responsibilities!!}
 								</div>
 							</div>
 						</div>
@@ -113,13 +113,13 @@ View Job
 									<h4 class="card-title">Benefits</h4>
 								</div>
 								<div class="card-body">
-									{{$job->benefits}}
+									{!!$job->benefits!!}
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="tab-pane" id="applications">
+				<div class="tab-pane" id="job_applications">
 					<div class="card">
 						<div class="card-header">
 							<h4 class="card-title">All Application</h4>
@@ -135,6 +135,7 @@ View Job
 											<th width="30%">Alumni</th>
 											<th class="text-center">Applied On</th>
 											<th class="text-center">Status</th>
+											<th class="text-center">Action</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -171,6 +172,9 @@ View Job
 													@default
 														<div class="alert alert-dark mb-0">Unknown</div>
 												@endswitch
+											</td>
+											<td class="text-center">
+												<a href="{{route('admin.viewapplication', Crypt::encrypt($application->id))}}" class="btn btn-link btn-info btn-just-icon edit"><i class="material-icons">search</i></a>
 											</td>
 										</tr>
 										@endforeach

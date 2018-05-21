@@ -17,12 +17,7 @@ Setting
 					<tr>
 						<td>Name</td>
 						<td class="text-capitalize">
-							@if($user->gender == "M")
-								{{ $user->firstname }} bin {{ $user->lastname }}
-							@else
-								{{ $user->firstname }} binti {{ $user->lastname }}
-							@endif
-							
+							{{ $user->firstname . ' ' . $user->lastname }}
 						</td>
 					</tr>
 					<tr>

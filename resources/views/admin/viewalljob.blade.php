@@ -36,11 +36,7 @@ All Job
 						</thead>
 						<tfoot>
 							<tr>
-								<th>Job Title</th>
-								<th>Job Category</th>
-								<th>Total Application</th>
-								<th class="text-center">Status</th>
-								<th class="text-right">Actions</th>
+								<td colspan="4" class="text-center">{{$jobs->links()}}</td>
 							</tr>
 						</tfoot>
 						<tbody>

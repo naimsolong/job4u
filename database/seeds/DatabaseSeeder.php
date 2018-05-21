@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
 
             // -------------- Insert User with Random Role
             
-            // UserRandomRolesTableSeeder::class,
+            UserRandomRolesTableSeeder::class,
             // UsersTableSeeder::class,
             RolesTableSeeder::class,
             AdminsTableSeeder::class,
@@ -64,6 +64,7 @@ class DatabaseSeeder extends Seeder
 
             // ApplicationsTableSeeder::class,
             // AddApplicationsTableSeeder::class,
+            JobsAndApplicationsTableSeeder::class,
 
 
 

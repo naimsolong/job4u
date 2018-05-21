@@ -34,6 +34,77 @@ class AdminController extends Controller
         return view('admin.viewdashboard', compact(['users', 'companies', 'jobs', 'applications']));
     }
 
+    public function viewsetting() {
+        $user = Auth::user();
+        
+        return view('admin.viewsetting', compact('user'));
+    }
+
+
+    // View Edit Setting View
+    public function editsetting() {
+        $user = Auth::user();
+
+        return view('admin.editsetting', compact('user'));
+    }
+
+    public function updatesetting(Request $request) {
+        $user = Auth::user();
+
+        $validator = Validator::make($request->all(), [
+            'firstname' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'gender' => 'required',
+            'username' => 'required|string|max:255|unique:users,username,'.$user->id,
+            'email' => 'required|string|email|max:255|unique:users,email,'.$user->id,
+        ]);
+
+        if($validator->fails()) {
+            return redirect('/admin/setting/edit')->withErrors($validator)->withInput();
+        }
+        
+        if($user->update($request->all())) {
+            return redirect('/admin/setting')->with('success', 'Setting updated!');
+        }
+        else {
+            return redirect('/admin/setting/edit')->withInput()->with('fail', 'Setting is not update!');
+        }
+    }
+
+    // View Edit Password
+    public function editpassword() {
+        return view('admin.editpassword');
+    }
+
+    // Update Password
+    public function updatepassword(Request $request) {
+        $user = Auth::user();
+
+        $validator = Validator::make($request->all(), [
+            'current_password' => 'required|string|min:6',
+            'password' => 'required|string|min:6|confirmed',
+            'password_confirmation' => 'required|string|min:6',
+        ]);
+
+        if($validator->fails() || !Hash::check($request->current_password, $user->password)) {
+            if(!Hash::check($request->current_password, $user->password))
+                return redirect('/admin/change-password')->withErrors($validator)->with('check_password', 'The current password is not same as previous password.');
+            else
+                return redirect('/admin/change-password')->withErrors($validator);
+        }
+        
+        $user->password = Hash::make($request->password);
+
+        if($user->update()) {
+            Auth::login($user);
+            return redirect('/admin/setting')->with('success', 'Password updated!');
+        }
+        else {
+            return redirect('/admin/change-password')->with('fail', 'Password is not update!');
+        }
+    }
+
+
     public function viewcompany($id) {
     	$id = Crypt::decrypt($id);
 
@@ -43,13 +114,13 @@ class AdminController extends Controller
     }
 
     public function viewallcompany() {
-        $companies = Company::all();
+        $companies = Company::paginate(10);
 
         return view('admin.viewallcompany', compact('companies'));
     }
 
     public function listverifycompany() {
-        $companies = Company::all();
+        $companies = Company::paginate(10);
 
         return view('admin.listverifycompany', compact('companies'));
     }
@@ -69,8 +140,23 @@ class AdminController extends Controller
     }
 
 
+    public function viewallapplication() {
+        $applications = Application::paginate(15);
+
+        return view('admin.viewallapplication', compact('applications'));
+    }
+
+    public function viewapplication($id) {
+        $id = Crypt::decrypt($id);
+
+        $application = Application::findOrFail($id);
+
+        return view('admin.viewapplication', compact('application'));
+    }
+
+
     public function viewalljob() {
-        $jobs = Job::all();
+        $jobs = Job::paginate(20);
 
         return view('admin.viewalljob', compact('jobs'));
     }
@@ -84,12 +170,12 @@ class AdminController extends Controller
     }
 
 
-    public function monthlyreport() {
-        return view('admin.monthlyreport');
+    public function reportmonthly() {
+        return view('admin.reportmonthly');
     }
 
-    public function yearlyreport() {
-        return view('admin.yearlyreport');
+    public function reportyearly() {
+        return view('admin.reportyearly');
     }
 
 

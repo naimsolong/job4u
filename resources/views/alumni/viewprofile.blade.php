@@ -37,21 +37,7 @@ Profile
 									<div class="col-12">
 										<i class="fas fa-user-circle"></i>
 										<b>
-											@if($user->alumni->race === 'Malay')
-												@if($user->gender == "M")
-												{{ $user->firstname }} bin {{ $user->lastname }}
-												@else
-												{{ $user->firstname }} binti {{ $user->lastname }}
-												@endif
-											@elseif($user->alumni->race === 'Indian')
-												@if($user->gender == "M")
-												{{ $user->firstname }} A/L {{ $user->lastname }}
-												@else
-												{{ $user->firstname }} A/P {{ $user->lastname }}
-												@endif
-											@else
-												{{ $user->firstname }} {{ $user->lastname }}
-											@endif
+											{{ $user->firstname . ' ' . $user->lastname }}
 										</b>
 									</div>
 									<div class="col-lg-6">
