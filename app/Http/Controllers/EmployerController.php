@@ -19,6 +19,7 @@ use App\EmployerType;
 use Validator;
 use Session;
 
+use Carbon\Carbon;
 use PDF;
 
 class EmployerController extends Controller
@@ -84,10 +85,8 @@ class EmployerController extends Controller
     }
 
     public function printReport() {
-        // $pdf = PDF::make('dompdf.wrapper');
-        // $pdf->loadHTML('<h1>Test</h1>');
-
         $applications = Auth::user()->employer->applications;
+        $date = Carbon::now()->format('l jS F Y h:i:s A');
 
         $jobs = [
             count($applications),
@@ -99,11 +98,9 @@ class EmployerController extends Controller
             count($applications->where("status", 6)),
         ];
 
-        // $data["info"] = "I is usefull!";
-        $pdf = PDF::loadHTML('<h1>Test</h1>');
-        return $pdf->stream('whateveryourviewname.pdf');
+        $pdf = PDF::loadView('employer.report', array('applications'=>$applications, 'date'=>$date));
+        return $pdf->stream('Employer_Report.pdf');
         
-        // return view('employer.report', compact('applications'));
     }
 
     // ----------------------------------------------------------------------

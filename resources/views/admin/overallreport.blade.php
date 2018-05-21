@@ -23,7 +23,7 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col">
-					<h2>Overall Report</h2>
+					<h2>Overall Applications Report</h2>
 					<p>Report Generated at {{$date}}</p>
 				</div>
 			</div>

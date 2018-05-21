@@ -495,6 +495,10 @@ Route::group(['prefix'=>'admin', 'as'=>'admin.', 'middleware'=>['guest']], funct
 
 });
 
+Route::get('/admin/print/overall', ['as'=>'admin.printOverallReport', 'uses'=>'AdminController@printOverallReport'])->middleware(['admin', 'auth']);
+
+Route::get('/admin/print/hired', ['as'=>'admin.printHiredReport', 'uses'=>'AdminController@printHiredReport'])->middleware(['admin', 'auth']);
+
 Route::group(['prefix'=>'admin', 'as'=>'admin.', 'middleware'=>['auth', 'admin']], function () {
 
 	// View Dashboard

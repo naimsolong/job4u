@@ -171,7 +171,7 @@
 	    			</div>
 	    		</li>
 	    		@endif
-	    		<li class="nav-item ">
+	    		{{-- <li class="nav-item ">
 	    			<a class="nav-link" data-toggle="collapse" href="#reports">
 	    				<i class="material-icons">description</i>
 	    				<p> Report
@@ -194,7 +194,7 @@
 	    					</li>
 	    				</ul>
 	    			</div>
-	    		</li>
+	    		</li> --}}
 	    	</ul>
 	    </div>
 	</div>

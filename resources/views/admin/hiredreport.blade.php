@@ -23,7 +23,7 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col">
-					<h2>Overall Report</h2>
+					<h2>Hired Applications Report ({{$year}})</h2>
 					<p>Report Generated at {{$date}}</p>
 				</div>
 			</div>
@@ -32,16 +32,28 @@
 				<div class="col">
 					<table class="table" width="100%" style="border: 1px solid black;  border-collapse: collapse;">
 						<tr>
-							<td style="border: 1px solid black;">NEW : {{count($applications->where('status', 1))}}</td>
-							<td style="border: 1px solid black;">SHORTLIST : {{count($applications->where('status', 2))}}</td>
+							<td style="border: 1px solid black;">January : {{$data[0]}}</td>
+							<td style="border: 1px solid black;">February : {{$data[1]}}</td>
 						</tr>
 						<tr>
-							<td style="border: 1px solid black;">INTERVIEW : {{count($applications->where('status', 3))}}</td>
-							<td style="border: 1px solid black;">KIV : {{count($applications->where('status', 4))}}</td>
+							<td style="border: 1px solid black;">March : {{$data[2]}}</td>
+							<td style="border: 1px solid black;">April : {{$data[3]}}</td>
 						</tr>
 						<tr>
-							<td style="border: 1px solid black;">HIRE : {{count($applications->where('status', 5))}}</td>
-							<td style="border: 1px solid black;">REJECT : {{count($applications->where('status', 6))}}</td>
+							<td style="border: 1px solid black;">May : {{$data[4]}}</td>
+							<td style="border: 1px solid black;">June : {{$data[5]}}</td>
+						</tr>
+						<tr>
+							<td style="border: 1px solid black;">July : {{$data[6]}}</td>
+							<td style="border: 1px solid black;">August : {{$data[7]}}</td>
+						</tr>
+						<tr>
+							<td style="border: 1px solid black;">September : {{$data[8]}}</td>
+							<td style="border: 1px solid black;">October : {{$data[9]}}</td>
+						</tr>
+						<tr>
+							<td style="border: 1px solid black;">November : {{$data[10]}}</td>
+							<td style="border: 1px solid black;">December : {{$data[11]}}</td>
 						</tr>
 					</table>
 				</div>

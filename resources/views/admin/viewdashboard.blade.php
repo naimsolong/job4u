@@ -67,6 +67,9 @@ Dashboard
 						<h4 class="card-title ">Overall Applications</h4>
 						<p class="card-category">Based on Status</p>
 					</div>
+					<div class="card-footer">
+						<a href="{{route('admin.printOverallReport')}}" class="btn btn-sm btn-secondary" target="_blank">Print</a>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -79,6 +82,9 @@ Dashboard
 					<div class="card-body">
 						<h4 class="card-title">Successful Hired</h4>
 						<p class="card-category">Year {{ Carbon\Carbon::now()->year }}</p>
+					</div>
+					<div class="card-footer">
+						<a href="{{route('admin.printHiredReport')}}" class="btn btn-sm btn-secondary" target="_blank">Print</a>
 					</div>
 				</div>
 			</div>

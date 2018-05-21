@@ -33,10 +33,10 @@ class DatabaseSeeder extends Seeder
 
             // -------------- Insert User with Random Role
             
+            AdminsTableSeeder::class,
             UserRandomRolesTableSeeder::class,
             // UsersTableSeeder::class,
             RolesTableSeeder::class,
-            AdminsTableSeeder::class,
 
 
             // -------------- Insert Alumni Profile

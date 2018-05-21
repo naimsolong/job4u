@@ -22,6 +22,7 @@ use App\LogApplication;
 use Validator;
 use Session;
 use Carbon\Carbon;
+use PDF;
 
 class AdminController extends Controller
 {
@@ -203,25 +204,61 @@ class AdminController extends Controller
 
     public function graphhiredapplication() {
 
-    	$current_year = Carbon::now()->year;
+    	$year = Carbon::now()->year;
 
-        $logs = LogApplication::whereYear('created_at', $current_year)->where('status', 6)->get();
+        $logs = LogApplication::whereYear('created_at', $year)->where('status', 6)->get();
 
         $data = [
-            count(LogApplication::whereYear('created_at', $current_year)->where('status', 6)->whereMonth('created_at', '1')->get()),
-            count(LogApplication::whereYear('created_at', $current_year)->where('status', 6)->whereMonth('created_at', '2')->get()),
-            count(LogApplication::whereYear('created_at', $current_year)->where('status', 6)->whereMonth('created_at', '3')->get()),
-            count(LogApplication::whereYear('created_at', $current_year)->where('status', 6)->whereMonth('created_at', '4')->get()),
-            count(LogApplication::whereYear('created_at', $current_year)->where('status', 6)->whereMonth('created_at', '5')->get()),
-            count(LogApplication::whereYear('created_at', $current_year)->where('status', 6)->whereMonth('created_at', '6')->get()),
-            count(LogApplication::whereYear('created_at', $current_year)->where('status', 6)->whereMonth('created_at', '7')->get()),
-            count(LogApplication::whereYear('created_at', $current_year)->where('status', 6)->whereMonth('created_at', '8')->get()),
-            count(LogApplication::whereYear('created_at', $current_year)->where('status', 6)->whereMonth('created_at', '9')->get()),
-            count(LogApplication::whereYear('created_at', $current_year)->where('status', 6)->whereMonth('created_at', '10')->get()),
-            count(LogApplication::whereYear('created_at', $current_year)->where('status', 6)->whereMonth('created_at', '11')->get()),
-            count(LogApplication::whereYear('created_at', $current_year)->where('status', 6)->whereMonth('created_at', '12')->get()),
+            count(LogApplication::whereYear('created_at', $year)->where('status', 6)->whereMonth('created_at', '1')->get()),
+            count(LogApplication::whereYear('created_at', $year)->where('status', 6)->whereMonth('created_at', '2')->get()),
+            count(LogApplication::whereYear('created_at', $year)->where('status', 6)->whereMonth('created_at', '3')->get()),
+            count(LogApplication::whereYear('created_at', $year)->where('status', 6)->whereMonth('created_at', '4')->get()),
+            count(LogApplication::whereYear('created_at', $year)->where('status', 6)->whereMonth('created_at', '5')->get()),
+            count(LogApplication::whereYear('created_at', $year)->where('status', 6)->whereMonth('created_at', '6')->get()),
+            count(LogApplication::whereYear('created_at', $year)->where('status', 6)->whereMonth('created_at', '7')->get()),
+            count(LogApplication::whereYear('created_at', $year)->where('status', 6)->whereMonth('created_at', '8')->get()),
+            count(LogApplication::whereYear('created_at', $year)->where('status', 6)->whereMonth('created_at', '9')->get()),
+            count(LogApplication::whereYear('created_at', $year)->where('status', 6)->whereMonth('created_at', '10')->get()),
+            count(LogApplication::whereYear('created_at', $year)->where('status', 6)->whereMonth('created_at', '11')->get()),
+            count(LogApplication::whereYear('created_at', $year)->where('status', 6)->whereMonth('created_at', '12')->get()),
         ];
 
         return response($data);
+    }
+
+    public function printOverallReport() {
+
+        $applications = Application::all();
+        $date = Carbon::now()->format('l jS F Y h:i:s A');
+
+        $pdf = PDF::loadView('admin.overallreport', array('applications'=>$applications, 'date'=>$date));
+        return $pdf->stream('OverallReport.pdf');
+        
+        // return view('employer.report', compact('jobs'));
+    }
+
+    public function printHiredReport() {
+
+        $logapplications = LogApplication::all();
+        $date = Carbon::now()->format('l jS F Y h:i:s A');
+        $year = Carbon::now()->format('Y');
+        $data = [
+            count(LogApplication::whereYear('created_at', $year)->where('status', 6)->whereMonth('created_at', '1')->get()),
+            count(LogApplication::whereYear('created_at', $year)->where('status', 6)->whereMonth('created_at', '2')->get()),
+            count(LogApplication::whereYear('created_at', $year)->where('status', 6)->whereMonth('created_at', '3')->get()),
+            count(LogApplication::whereYear('created_at', $year)->where('status', 6)->whereMonth('created_at', '4')->get()),
+            count(LogApplication::whereYear('created_at', $year)->where('status', 6)->whereMonth('created_at', '5')->get()),
+            count(LogApplication::whereYear('created_at', $year)->where('status', 6)->whereMonth('created_at', '6')->get()),
+            count(LogApplication::whereYear('created_at', $year)->where('status', 6)->whereMonth('created_at', '7')->get()),
+            count(LogApplication::whereYear('created_at', $year)->where('status', 6)->whereMonth('created_at', '8')->get()),
+            count(LogApplication::whereYear('created_at', $year)->where('status', 6)->whereMonth('created_at', '9')->get()),
+            count(LogApplication::whereYear('created_at', $year)->where('status', 6)->whereMonth('created_at', '10')->get()),
+            count(LogApplication::whereYear('created_at', $year)->where('status', 6)->whereMonth('created_at', '11')->get()),
+            count(LogApplication::whereYear('created_at', $year)->where('status', 6)->whereMonth('created_at', '12')->get()),
+        ];
+        $pdf = PDF::loadView('admin.hiredreport', array('data'=>$data, 'date'=>$date, 'year'=>$year));
+        return $pdf->stream('HiredReport.pdf');
+        
+        // return view('employer.report', compact('jobs'));
     }
 }
