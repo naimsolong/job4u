@@ -73,6 +73,10 @@ class JobController extends Controller
     public function postjob() {
 
         $user = Auth::user();
+        
+        if(empty($user->employer))
+            return redirect('/e/profile/edit')->with('fail', 'Please fill in profile information!');
+            
         if(count($user->employer->company) == 1) {
             $jobCategories = JobCategory::all();
             $positionLevels = JobPositionLevel::all();

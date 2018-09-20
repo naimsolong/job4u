@@ -39,6 +39,12 @@ class EmployerController extends Controller
         // $job = $user->employer->jobs->first();
         $applications = $user->employer->applications;
         
+        if(empty($jobs))
+        $jobs = null;
+
+        if(empty($applications))
+        $applications = null;
+
 		return view('employer.viewdashboard', compact(['user', 'jobs','applications']));
 	}
 

@@ -23,10 +23,12 @@ set('ssh_multiplexing', false);
 
 // Hosts
 
-host('128.199.164.104')
+host('128.199.92.111')
     ->user('deployer')
     ->identityFile('~/.ssh/deployerkey')
-    ->set('deploy_path', '/var/www/html/job4u');  
+    ->set('deploy_path', '/var/www/html/job4u')
+    ->set('/usr/bin/php', 'php')
+	->set('/usr/local/bin/composer', 'composer');
     
 // Tasks
 
@@ -39,7 +41,8 @@ after('deploy:failed', 'deploy:unlock');
 
 // Migrate database before symlink new release.
 
-// after('deploy:update_code', 'artisan:migrate');
+after('artisan:migrate', 'artisan:db:seed');
+before('deploy:symlink', 'artisan:migrate');
 // after('artisan:migrate', 'artisan:db:seed');
 
 
